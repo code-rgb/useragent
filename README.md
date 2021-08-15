@@ -1,13 +1,14 @@
-# useragent
-
-## Usage
+## Example
 ```python
 import requests
 from random import choice
 
+UA_REPO = "https://raw.githubusercontent.com/code-rgb/useragent/main"
+
+
 def random_ua() -> str:
     browser = choice(("chrome", "firefox", "safari"))
-    url = f"https://raw.githubusercontent.com/code-rgb/useragent/main/{browser}.txt"
-    ua_list = requests.get(url).text.split("\n")
-    return choice(ua_list)
+    resp = requests.get(f"{UA_REPO}/{browser}.txt")
+    assert resp.status_code == 200
+    return choice(resp.text.split("\n"))
 ```
